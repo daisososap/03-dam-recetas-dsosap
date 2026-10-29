@@ -22,7 +22,8 @@ class Receta {
     required this.imagenUrl,
     required this.calificacion,
   });
-factory Receta.fromJson(Map<String, dynamic> json) {
+
+  factory Receta.fromJson(Map<String, dynamic> json) {
     return Receta(
       id: json['id'] ?? 0,
       nombre: json['name'] ?? '',
@@ -40,7 +41,7 @@ factory Receta.fromJson(Map<String, dynamic> json) {
       calificacion: json['rating'] != null 
           ? (json['rating'] as num).toDouble() 
           : 0.0,
-    ); // Receta
+    );
   }
   
   int get tiempoTotal => tiempoPreparacion + tiempoCocccion;

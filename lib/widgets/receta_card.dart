@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:recetas_app/models/receta.dart';
-import 'package:recetas_app/screens/detalle_receta_screen.dart';
 
 class RecetaCard extends StatelessWidget {
   final Receta receta;
+  final VoidCallback? onTap;
 
-  const RecetaCard({super.key, required this.receta});
+  const RecetaCard({
+    super.key,
+    required this.receta,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetalleRecetaScreen(receta: receta),
-            ),
-          );
-        },
+        onTap: onTap,
         borderRadius: BorderRadius.circular(14),
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -34,7 +33,7 @@ class RecetaCard extends StatelessWidget {
                   width: 72,
                   height: 72,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                  errorBuilder: (context, error, stack) => Image.asset(
                     'assets/images/plato-placeholder.jpg',
                     width: 72,
                     height: 72,
@@ -58,7 +57,7 @@ class RecetaCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Calorías: ${receta.calorias} kcal | Total: ${receta.tiempoTotal} min',
+                      '${receta.tiempoTotal} min • ${receta.porciones} porciones • ${receta.calorias} kcal',
                       style: TextStyle(
                         fontSize: 11.5,
                         color: Colors.grey.shade600,
@@ -67,7 +66,6 @@ class RecetaCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
             ],
           ),
         ),
